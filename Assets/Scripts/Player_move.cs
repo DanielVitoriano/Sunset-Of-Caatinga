@@ -6,52 +6,40 @@ public class Player_move : MonoBehaviour
 {
 
     private Animator anim;
+    private Rigidbody2D playerRb;
+    private Vector2 moviment;
     public float speed;
 
     // Start is called before the first frame update
     void Start()
     {
         anim = GetComponent<Animator>();
+        playerRb = GetComponent<Rigidbody2D>();
     }
+    void Update(){
+        moviment.x = Input.GetAxisRaw("Horizontal");
+        moviment.y = Input.GetAxisRaw("Vertical");
 
+        anim.SetFloat("x", moviment.x);
+        anim.SetFloat("y", moviment.y);
+        anim.SetFloat("speed", moviment.sqrMagnitude);
+
+        if(moviment != Vector2.zero){
+            anim.SetFloat("horizontal_idle", moviment.x);
+            anim.SetFloat("vertical_idle", moviment.y);
+        }
+        //inverter
+        if(moviment.x == -1){
+            transform.eulerAngles = new Vector2(0f, -180f);
+        }
+        else if(moviment.x == 1){
+            transform.eulerAngles = new Vector2(0f, 0f);
+        }
+
+    }
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        Vector3 movement = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0f);
-
-        anim.SetFloat("x", movement.x);
-        anim.SetFloat("y", movement.y);
-        anim.SetFloat("speed", movement.magnitude);
-
-        transform.position += movement * Time.deltaTime * speed;
-        
-        if(movement.x < 0){
-            transform.eulerAngles = new Vector3(0, -180, 0);
-        }
-        else{
-            transform.eulerAngles = new Vector3(0, 0, 0);
-        }
-        //baixo
-        if(movement.x == 0 && movement.y == -1){
-            anim.SetInteger("side", 0);
-        }
-        //cima
-        else if(movement.x == 0 && movement.y == 1){
-            anim.SetInteger("side", 1);
-        }
-
-        //angulo 1
-        else if(movement.x == 1 || movement.x == -1 && movement.y == -1){
-            anim.SetInteger("side", 2);
-        }
-        //ang 2
-        else if(movement.x == 1 || movement.x == -1 && movement.y == 1){
-            anim.SetInteger("side", 3);
-        }
-
-        //direita ou esquerda
-        else if(movement.x == 1 || movement.x == -1 && movement.y == 0){
-            anim.SetInteger("side", 4);
-        }
+        playerRb.MovePosition(playerRb.position + moviment.normalized * speed * Time.fixedDeltaTime);
     }
 }
