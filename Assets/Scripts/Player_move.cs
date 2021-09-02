@@ -5,6 +5,7 @@ using UnityEngine;
 public class Player_move : MonoBehaviour
 {
 
+    private SpriteRenderer sprite;
     private Animator anim;
     private Rigidbody2D playerRb;
     private Vector2 moviment;
@@ -13,6 +14,7 @@ public class Player_move : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        sprite = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
         playerRb = GetComponent<Rigidbody2D>();
     }
@@ -30,16 +32,21 @@ public class Player_move : MonoBehaviour
         }
         //inverter
         if(moviment.x == -1){
-            transform.eulerAngles = new Vector2(0f, -180f);
+            sprite.flipX = true;
         }
         else if(moviment.x == 1){
-            transform.eulerAngles = new Vector2(0f, 0f);
+            sprite.flipX = false;
         }
-
+        //print(enabled);
     }
     // Update is called once per frame
     void FixedUpdate()
     {
         playerRb.MovePosition(playerRb.position + moviment.normalized * speed * Time.fixedDeltaTime);
     }
+
+    public Vector2 getMoviment(){
+        return moviment;
+    }
+
 }
