@@ -6,10 +6,11 @@ public class Bullet : MonoBehaviour
 {
     public float speed;
 
-    // Update is called once per frame
+    void Start(){
+    }
     void Update()
     {
-        
+
     }
     void FixedUpdate() {
         transform.Translate(Vector3.down * speed * Time.deltaTime);
@@ -18,4 +19,5 @@ public class Bullet : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other) {
         Destroy(gameObject);
     }
+
 }
