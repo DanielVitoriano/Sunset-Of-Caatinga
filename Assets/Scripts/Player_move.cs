@@ -31,10 +31,10 @@ public class Player_move : MonoBehaviour
             anim.SetFloat("vertical_idle", moviment.y);
         }
         //inverter
-        if(moviment.x == -1){
+        if(moviment.x <= -0.1f) {
             sprite.flipX = true;
         }
-        else if(moviment.x == 1){
+        else if(moviment.x >= 0.1f){
             sprite.flipX = false;
         }
         //print(enabled);
@@ -43,10 +43,6 @@ public class Player_move : MonoBehaviour
     void FixedUpdate()
     {
         playerRb.MovePosition(playerRb.position + moviment.normalized * speed * Time.fixedDeltaTime);
-    }
-
-    public Vector2 getMoviment(){
-        return moviment;
     }
 
 }
