@@ -5,6 +5,7 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     public float speed;
+    public int damage;
     private float life = 10f;
     private Vector2 init_pos;
     private Light bullet_light;
@@ -27,6 +28,7 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other) {
         if(other.gameObject.layer == 8){
+            other.GetComponent<Enemy>().Damage(damage);
             Destroy(gameObject);
         }
 
