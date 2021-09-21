@@ -6,9 +6,10 @@ public class Player_move : MonoBehaviour
 {
 
     private SpriteRenderer sprite;
+    public Camera cam;
     private Animator anim;
     private Rigidbody2D playerRb;
-    private Vector2 moviment;
+    private Vector2 moviment,mousePos;
     public float speed;
 
     // Start is called before the first frame update
