@@ -20,7 +20,7 @@ public class Bullet : MonoBehaviour
         if(Vector2.Distance(init_pos, transform.position) >= life){
             Destroy(gameObject);
         }
-        bullet_light.intensity = Random.Range(0.5f, 1.5f);
+        bullet_light.intensity = Random.Range(0.2f, 1f);
     }
     void FixedUpdate() {
         transform.Translate(Vector3.down * speed * Time.deltaTime);
@@ -29,6 +29,10 @@ public class Bullet : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other) {
         if(other.gameObject.layer == 8){
             other.GetComponent<Enemy>().Damage(damage);
+            Destroy(gameObject);
+        }
+        else if(other.gameObject.layer == 6){}
+        else{
             Destroy(gameObject);
         }
 
