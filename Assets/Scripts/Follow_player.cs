@@ -4,17 +4,16 @@ using UnityEngine;
 
 public class Follow_player : MonoBehaviour
 {
+    public float follow_distance;
+    private GameObject target;
 
-    // Start is called before the first frame update 8, 56, 104, 152, 200 e 248
     void Start()
     {
-
+        target = GameObject.FindGameObjectWithTag("Player");
     }
-
-    // Update is called once per frame
     void Update()
     {
-       
+
     }
 
 }
